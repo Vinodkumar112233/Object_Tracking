@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Professional typography (single modern theme: dark dashboard) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <title>YOLOv8 + DeepSORT Object Tracking</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__inner">
+      <div class="brand">
+        <div class="brand__logo" aria-hidden="true">◎</div>
+        <div>
+          <div class="brand__title">Object Tracking</div>
+          <div class="brand__subtitle">YOLOv8 + DeepSORT Dashboard</div>
+        </div>
+      </div>
+
+      <div class="topbar__meta" aria-label="Service status">
+        <span class="pill" id="pillMode">Mode: idle</span>
+        <span class="pill pill--muted" id="pillConn">Ready</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="grid">
+      <div class="card card--controls">
+        <div class="card__header">
+          <h2 class="card__title">Controls</h2>
+          <p class="card__subtitle">Start camera or upload a video to visualize persistent track IDs.</p>
+        </div>
+
+        <div class="stack">
+          <div class="row row--2">
+            <div class="field">
+              <label for="modelSelect">Model</label>
+              <select id="modelSelect" class="select">
+                <option value="yolov8n.pt" selected>yolov8n.pt (fast)</option>
+                <option value="yolov8s.pt">yolov8s.pt</option>
+                <option value="yolov8m.pt">yolov8m.pt</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="confInput">Confidence</label>
+              <input id="confInput" class="input" type="number" step="0.05" min="0" max="1" value="0.4" />
+            </div>
+          </div>
+
+          <div class="actions">
+            <button id="btnCamera" class="btn btn--primary">Open Camera</button>
+            <button id="btnStop" class="btn btn--danger" disabled>Stop</button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="field">
+            <label for="videoFile">Upload Video</label>
+            <input id="videoFile" class="input input--file" type="file" accept="video/*" />
+          </div>
+
+          <div class="actions">
+            <button id="btnUpload" class="btn btn--primary btn--wide" disabled>Upload & Track</button>
+          </div>
+
+          <div class="statusbox" role="status" aria-live="polite">
+            <div class="statusbox__title">Status</div>
+            <div id="status" class="statusbox__text">Waiting for action…</div>
+            <div id="outputPath" class="statusbox__path"></div>
+          </div>
+
+          <div class="muted">
+            Tip: Use <span class="kbd">Stop</span> to end the current stream.
+          </div>
+        </div>
+      </div>
+
+      <div class="card card--output">
+        <div class="card__header">
+          <h2 class="card__title">Live Output</h2>
+          <p class="card__subtitle">MJPEG annotated stream from the server.</p>
+        </div>
+
+        <div class="videoWrap" aria-label="Live tracking stream">
+          <div id="streamPlaceholder" class="placeholder">
+            <div class="placeholder__title">No stream yet</div>
+            <div class="placeholder__text">Start camera or upload a video to begin tracking.</div>
+          </div>
+          <img id="stream" alt="tracking stream" class="stream" style="display:none" />
+        </div>
+
+        <div class="streamFooter">
+          <div class="hint" id="hint">GPU/CPU inference happens on the server. First frame may take a moment.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
+
