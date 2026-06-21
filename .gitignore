@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+venv/
+ENV/
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Flask / runtime uploads/outputs
+uploads/
+outputs/
+outputs_web/
+
+# Video files
+*.mp4
+
+# Ultralytics training runs
+runs/
+
+# YOLO weights (optional: keep repo lightweight)
+*.pt
+
+# Jupyter
+.ipynb_checkpoints/
+
+# CSV exports
+*.csv
+
